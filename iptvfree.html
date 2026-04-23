@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+<meta charset="UTF-8">
+<title>IPTV App</title>
+
+<style>
+body {
+    margin: 0;
+    background: #0b0b0b;
+    font-family: Arial;
+    color: white;
+    overflow: hidden;
+}
+
+h1 {
+    text-align: center;
+    margin: 10px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 15px;
+    padding: 20px;
+}
+
+.channel {
+    background: #1a1a1a;
+    border-radius: 15px;
+    padding: 18px;
+    text-align: center;
+    font-size: 16px;
+    transition: 0.2s;
+}
+
+.channel.active {
+    border: 3px solid #00ffcc;
+    transform: scale(1.1);
+    background: #333;
+}
+</style>
+
+</head>
+<body>
+
+<h1>📺 IPTV Kanali</h1>
+
+<div class="grid">
+
+<!-- RTS -->
+<div class="channel" data-url="https://rtsplaneta.rs/live/tv/218325/rts-direktan-prenos">RTS UŽIVO</div>
+<div class="channel" data-url="https://rtsplaneta.rs/live/tv/5/rts-1">RTS 1</div>
+<div class="channel" data-url="https://rtsplaneta.rs/live/tv/4/rts-2">RTS 2</div>
+<div class="channel" data-url="https://rtsplaneta.rs/live/tv/2/rts-3">RTS 3</div>
+<div class="channel" data-url="https://rtsplaneta.rs/live/tv/16889/rts-svet">RTS SVET</div>
+<div class="channel" data-url="https://rtsplaneta.rs/live/tv/14/rts-drama">RTS DRAMA</div>
+<div class="channel" data-url="https://rtsplaneta.rs/live/tv/11/rts-zivot">RTS ŽIVOT</div>
+<div class="channel" data-url="https://rtsplaneta.rs/live/tv/16886/rts-kolo">RTS KOLO</div>
+<div class="channel" data-url="https://rtsplaneta.rs/live/tv/8/rts-muzika">RTS MUZIKA</div>
+<div class="channel" data-url="https://rtsplaneta.rs/live/tv/16883/rts-poletarac">RTS POLETARAC</div>
+<div class="channel" data-url="https://rtsplaneta.rs/live/tv/16887/rts-nauka">RTS NAUKA</div>
+<div class="channel" data-url="https://rtsplaneta.rs/live/tv/16/rts-trezor">RTS TREZOR</div>
+<div class="channel" data-url="https://rtsplaneta.rs/live/tv/1706641/rts-klasika">RTS KLASIKA</div>
+
+<!-- OSTALI -->
+<div class="channel" data-url="https://www.jagledam.com/24-Kitchen-uzivo-stream">24Kitchen</div>
+<div class="channel" data-url="https://www.jagledam.com/amc-uzivo-stream">AMC</div>
+<div class="channel" data-url="https://www.jagledam.com/Arena-Adrenalin-uzivo-stream">Adrenalin</div>
+<div class="channel" data-url="https://www.jagledam.com/Arena-eSport-uzivo-stream">Arena eSport</div>
+<div class="channel" data-url="https://www.jagledam.com/Arena-Fight-uzivo-stream">Arena Fight</div>
+<div class="channel" data-url="https://www.jagledam.com/Arena-Sport-1x2-uzivo-stream">Arena Sport 1x2</div>
+<div class="channel" data-url="https://www.jagledam.com/Arena-tenis-uzivo-stream">Arena Tennis</div>
+<div class="channel" data-url="https://www.jagledam.com/AS-Sabac-uzivo-stream">AS Šabac</div>
+<div class="channel" data-url="https://www.jagledam.com/Minimax-uzivo-stream">Minimax</div>
+<div class="channel" data-url="https://www.jagledam.com/Pink-1-uzivo-stream">Pink</div>
+<div class="channel" data-url="https://www.jagledam.com/Superstar-3-uzivo-stream">Superstar 3</div>
+<div class="channel" data-url="https://www.jagledam.com/SUPERSTAR-TV-uzivo-stream">Superstar 1</div>
+
+<div class="channel" data-url="https://www.tvbalkanuzivo.com/happy-tv/1/">Happy TV</div>
+<div class="channel" data-url="https://www.tvbalkanuzivo.com/n1/">N1</div>
+<div class="channel" data-url="https://www.tvbalkanuzivo.com/prva-tv/">Prva TV</div>
+<div class="channel" data-url="https://www.tvbalkanuzivo.com/hrt-1/">HRT 1</div>
+<div class="channel" data-url="https://www.tvbalkanuzivo.com/hrt-2-hr/">HRT 2</div>
+<div class="channel" data-url="https://www.tvbalkanuzivo.com/hrt-3/">HRT 3</div>
+<div class="channel" data-url="https://www.tvbalkanuzivo.com/hrt-4/">HRT 4</div>
+<div class="channel" data-url="https://www.tvbalkanuzivo.com/nova-s/2/">Nova S</div>
+<div class="channel" data-url="https://www.tvbalkanuzivo.com/rtv-1/">RTV 1</div>
+<div class="channel" data-url="https://www.tvbalkanuzivo.com/rtv-2/">RTV 2</div>
+
+</div>
+
+<script>
+const channels = document.querySelectorAll(".channel");
+let index = 0;
+let columns = 5;
+
+channels[index].classList.add("active");
+
+document.addEventListener("keydown", (e) => {
+
+    if (e.key === "ArrowRight") {
+        index++;
+        if (index >= channels.length) index = 0;
+    }
+
+    if (e.key === "ArrowLeft") {
+        index--;
+        if (index < 0) index = channels.length - 1;
+    }
+
+    if (e.key === "ArrowDown") {
+        index += columns;
+        if (index >= channels.length) index = index % channels.length;
+    }
+
+    if (e.key === "ArrowUp") {
+        index -= columns;
+        if (index < 0) index = channels.length + index;
+    }
+
+    if (e.key === "Enter") {
+        let url = channels[index].getAttribute("data-url");
+        window.location.href = url;
+    }
+
+    channels.forEach(c => c.classList.remove("active"));
+    channels[index].classList.add("active");
+});
+</script>
+
+</body>
+</html>
